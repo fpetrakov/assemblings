@@ -1,7 +1,7 @@
 [project]
-name = "asm-trainer"
+name = "assemblings"
 version = "0.1.0"
-description = "Interactive x86-64 NASM exercise trainer"
+description = "Interactive x86-64 NASM exercises"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [

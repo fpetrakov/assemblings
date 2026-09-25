@@ -1,4 +1,4 @@
-# asm-trainer
+# Assemblings
 
 Interactive x86-64 NASM exercise trainer. Each exercise is a `.asm` file under
 `src/exercises/` paired with a GDB-scripted test of the same name under

@@ -87,7 +87,7 @@ def watch_and_run(exercise: Exercise) -> None:
 
 def main() -> None:
     check_dependencies()
-    console.print("[bold]x86-64 Assembly Trainer[/bold]\n")
+    console.print("[bold]Assembling[/bold]\n")
 
     try:
         while True:

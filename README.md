@@ -1,8 +1,6 @@
 # Assemblings
 
-Interactive x86-64 NASM exercise trainer. Each exercise is a `.asm` file under
-`src/exercises/` paired with a GDB-scripted test of the same name under
-`src/tests/`.
+⚙️ Small exercises to get you used to reading and writing assembly! This project is inspired by [Rustlings](https://github.com/rust-lang/rustlings) and [Ziglings](https://codeberg.org/ziglings/exercises). 
 
 ## Requirements
 
@@ -29,11 +27,3 @@ This will:
 
 Progress is never written to disk — it's always recomputed by re-running the
 tests, so the source of truth is always "does the code actually pass."
-
-## Adding exercises
-
-Add `src/exercises/NN_name.asm` and `src/tests/NN_name.py` with a matching
-`NN_name` stem. Exercises are ordered by the leading number in the filename.
-Test files use the GDB Python API (`gdb.Breakpoint`, `gdb.execute`,
-`gdb.parse_and_eval`); print `"ALL TESTS PASSED"` and exit 0 on success, or
-call `sys.exit(1)` on failure.

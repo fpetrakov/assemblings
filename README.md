@@ -4,7 +4,6 @@ Small exercises to get you used to reading and writing assembly! More specifical
 
 Exercises do not contain theory, so it's recommended, in parallel, to read and/or solve [the Computing 101 course by PWN college](https://pwn.college/computing-101/) and [the Exercism Assembly track](https://exercism.org/tracks/x86-64-assembly). Both are free and great for starting out on this sometimes hard, but definitely fun, journey!
 
-
 You can also just use some large language model to explain things to you, but do the exercises yourself; otherwise, you will learn nothing. Programming is learned by writing programs, not by asking an LLM to write them for you.
 
 ## Requirements

@@ -17,11 +17,11 @@ class BuildResult:
 
 def build_exercise(exercise: Exercise) -> BuildResult:
     BUILD_DIR.mkdir(parents=True, exist_ok=True)
-    obj_path = BUILD_DIR / f"{exercise.stem}.o"
-    bin_path = BUILD_DIR / exercise.stem
+    object_path = BUILD_DIR / f"{exercise.stem}.o"
+    binary_path = BUILD_DIR / exercise.stem
 
     nasm = subprocess.run(
-        ["nasm", "-f", "elf64", "-g", str(exercise.asm_path), "-o", str(obj_path)],
+        ["nasm", "-f", "elf64", "-g", str(exercise.asm_path), "-o", str(object_path)],
         capture_output=True,
         text=True,
         check=False,
@@ -30,7 +30,7 @@ def build_exercise(exercise: Exercise) -> BuildResult:
         return BuildResult(False, None, f"nasm error:\n{nasm.stderr.strip()}")
 
     ld = subprocess.run(
-        ["ld", str(obj_path), "-o", str(bin_path)],
+        ["ld", str(object_path), "-o", str(binary_path)],
         capture_output=True,
         text=True,
         check=False,
@@ -38,4 +38,4 @@ def build_exercise(exercise: Exercise) -> BuildResult:
     if ld.returncode != 0:
         return BuildResult(False, None, f"ld error:\n{ld.stderr.strip()}")
 
-    return BuildResult(True, bin_path, "")
+    return BuildResult(True, binary_path, "")

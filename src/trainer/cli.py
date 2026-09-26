@@ -88,31 +88,27 @@ def watch_and_run(exercise: Exercise) -> None:
 def main() -> None:
     check_dependencies()
     console.print("[bold]Assemblings![/bold]\n")
+    exercises = discover_exercises()
+    if not exercises:
+        console.print(
+            "[red]No exercise/test pairs found under src/exercises and src/tests.[/red]"
+        )
+        sys.exit(1)
+    total = len(exercises)
 
     try:
         while True:
-            exercises = discover_exercises()
-            if not exercises:
-                console.print(
-                    "[red]No exercise/test pairs found under src/exercises and src/tests.[/red]"
-                )
-                sys.exit(1)
-
             idx, done = find_current(exercises)
-            total = len(exercises)
 
-            if idx >= total:
+            if done == total:
                 show_progress(total, total)
                 console.print(
                     "\n[bold green]\U0001f389 All exercises complete![/bold green]"
                 )
                 return
 
-            if done > 0:
-                show_progress(done, total)
-
+            show_progress(done, total)
             watch_and_run(exercises[idx])
-            console.print()
     except KeyboardInterrupt:
         console.print("\n[dim]Bye.[/dim]")
 

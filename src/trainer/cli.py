@@ -42,7 +42,11 @@ def find_current(exercises: list[Exercise]) -> tuple[int, int]:
 def show_progress(done: int, total: int) -> None:
     with Progress(
         TextColumn("[bold green]Progress"),
-        BarColumn(),
+        BarColumn(
+            style="bar.back",
+            complete_style="bright_green",
+            finished_style="bright_green",
+        ),
         TextColumn("{task.completed}/{task.total} exercises"),
         console=console,
         transient=False,

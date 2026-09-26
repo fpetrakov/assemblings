@@ -15,6 +15,14 @@ def _find_project_root() -> Path:
 
 
 ROOT = _find_project_root()
-EXERCISES_DIR = ROOT / "src" / "exercises"
-TESTS_DIR = ROOT / "src" / "tests"
+SRC_DIR = ROOT / "src"
+EXERCISES_DIR = SRC_DIR / "exercises"
+TESTS_DIR = SRC_DIR / "tests"
 BUILD_DIR = ROOT / ".build"
+paths = [
+    str(TESTS_DIR),
+    str(BUILD_DIR),
+    str(EXERCISES_DIR),
+    str(SRC_DIR),
+    str(ROOT),
+]

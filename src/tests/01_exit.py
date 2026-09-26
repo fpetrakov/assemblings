@@ -1,13 +1,5 @@
-import sys
-
 import gdb
-
-
-def eq(name, actual, expected):
-    if actual != expected:
-        print(f"FAIL: {name} = {actual}, expected {expected}")
-        sys.exit(1)
-    print(f"PASS: {name} = {actual}")
+from utils import eq
 
 
 def call_and_check(func_name, rdi_val, rsi_val, expected_rax):
@@ -28,5 +20,3 @@ def call_and_check(func_name, rdi_val, rsi_val, expected_rax):
 call_and_check("add_and_double", 5, 10, 30)
 call_and_check("add_and_double", 0, 0, 0)
 call_and_check("add_and_double", -1, 1, 0)
-
-print("ALL TESTS PASSED")

@@ -1,11 +1,13 @@
 from __future__ import annotations
 
+import os
 import subprocess
 from dataclasses import dataclass
 
 from .build import build_exercise
 from .discovery import Exercise
-from .paths import ROOT
+from .exceptions import CheckError
+from .paths import ROOT, paths
 
 
 @dataclass
@@ -34,6 +36,12 @@ def run_exercise_test(exercise: Exercise, timeout: int = 15) -> TestResult:
     if project_gdbinit.exists():
         cmd += ["-x", str(project_gdbinit)]
 
+    # gdb needs those to resolve imports inside python tests
+    env = os.environ.copy()
+    env["PYTHONPATH"] = os.pathsep.join(
+        paths + env.get("PYTHONPATH", "").split(os.pathsep)
+    )
+
     cmd += [
         "--batch",  # run script(s) and exit, no interactive prompt
         "-x",
@@ -45,6 +53,7 @@ def run_exercise_test(exercise: Exercise, timeout: int = 15) -> TestResult:
     try:
         gdb = subprocess.run(
             cmd,
+            env=env,
             capture_output=True,
             text=True,
             timeout=timeout,
@@ -52,6 +61,11 @@ def run_exercise_test(exercise: Exercise, timeout: int = 15) -> TestResult:
         )
     except subprocess.TimeoutExpired:
         return TestResult(False, f"Test timed out after {timeout}s (infinite loop?).")
+    except CheckError as error:
+        return TestResult(False, str(error))
 
+    success = gdb.returncode == 0
+    if success:
+        print(f"{exercise.test_path}: ALL TESTS PASSED")
     log = (gdb.stdout + gdb.stderr).strip()
-    return TestResult(gdb.returncode == 0, log)
+    return TestResult(success, log)
